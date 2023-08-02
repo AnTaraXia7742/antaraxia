@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form Pendaftaran Beasiswa</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Form Pendaftaran Beasiswa</h1>
+      <form id="form">
+        <label for="name">Masukkan Nama</label>
+        <input type="text" id="name" required />
+
+        <label for=" Npm">masukan NPM</label>
+        <input type="text" id="Npm" required />
+
+        <label for="email">Masukkan Email</label>
+        <input type="email" id="email" required />
+
+        <label for="handphone">Masukkan Nomor HP</label>
+        <input
+          type="text"
+          id="handphone"
+          onkeypress="validate(event)"
+          required
+        />
+
+        <label for="semester">Semester Saat Ini</label>
+        <select id="semester" required>
+          <option value="">Pilih Semester</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
+
+        <label for="Ipk">Ipk</label>
+        <input type="text" id="Ipk" />
+
+        <label for="beasiswa">Pilihan Beasiswa</label>
+        <select id="beasiswa">
+          <option value="Beasiswa Akademik">Beasiswa Akademik</option>
+          <option value="Beasiswa Non Akademik">Beasiswa Non Akademik</option>
+        </select>
+
+        <div>
+          <h1>Upload Berkas</h1>
+          <form
+            action="upload_handler.php"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <input type="file" id="fileInput" name="myFile" />
+            <button type="submit">Daftar</button>
+          </form>
+        </div>
+        <button type="button" id="btnbatal">Batal</button>
+      </form>
+    </div>
+
+    <script src="hasil.js"></script>
+  </body>
+</html>
