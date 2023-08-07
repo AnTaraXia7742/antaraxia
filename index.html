@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Form Pendaftaran Beasiswa</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -40,7 +41,7 @@
         </select>
 
         <label for="Ipk">Ipk</label>
-        <input type="text" id="Ipk" />
+        <input type="text" id="Ipk" onclick="showIpkPopup()" />
 
         <label for="beasiswa">Pilihan Beasiswa</label>
         <select id="beasiswa">
@@ -64,5 +65,28 @@
     </div>
 
     <script src="hasil.js"></script>
+    <script>
+      function showIpkPopup() {
+        Swal.fire({
+          title: "Masukkan Nilai IPK",
+          input: "text",
+          inputPlaceholder: "Contoh: 3",
+          showCancelButton: true,
+          confirmButtonText: "Simpan",
+          cancelButtonText: "Batal",
+          inputValidator: (value) => {
+            if (!value) {
+              return "Anda harus memasukkan nilai IPK";
+            }
+          },
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const ipkInput = document.getElementById("Ipk");
+            ipkInput.value = result.value;
+            // You can also perform any other actions with the IPK value here
+          }
+        });
+      }
+    </script>
   </body>
 </html>
