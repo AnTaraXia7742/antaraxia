@@ -1,19 +1,40 @@
 function validate(evt) {
   var theEvent = evt || window.event;
-
-  // Handle paste
-  if (theEvent.type === "paste") {
-    key = event.clipboardData.getData("text/plain");
-  } else {
-    // Handle key press
-    var key = theEvent.keyCode || theEvent.which;
-    key = String.fromCharCode(key);
-  }
-  var regex = /[0-9]|\./;
+  var key = theEvent.keyCode || theEvent.which;
+  key = String.fromCharCode(key);
+  var regex = /[0-9.]|\./; // Diperbaiki regex untuk menerima angka dan titik (untuk bilangan desimal)
   if (!regex.test(key)) {
-    theEvent.returnValue = false;
     if (theEvent.preventDefault) theEvent.preventDefault();
   }
+}
+
+// Fungsi untuk menampilkan popup untuk mengisi nilai IPK
+function showIpkPopup() {
+  Swal.fire({
+    title: "Masukkan IPK",
+    input: "number", // Ubah input menjadi number agar hanya dapat memasukkan angka
+    inputAttributes: {
+      required: "required",
+      step: "0.01", // Batasi angka desimal hanya 2 digit
+      min: "3", // Nilai minimum IPK adalah
+      max: "4", // Nilai maksimum IPK adalah 4
+    },
+    showCancelButton: true,
+    cancelButtonText: "Batal",
+    confirmButtonText: "Simpan",
+    preConfirm: (ipk) => {
+      // Lakukan validasi apakah nilai IPK sesuai (0 hingga 4 dengan dua angka desimal)
+      if (isNaN(ipk) || ipk < 0 || ipk > 4) {
+        Swal.showValidationMessage("Masukkan nilai IPK yang valid (0 - 4)");
+      }
+      return ipk;
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Jika pengguna menekan tombol "Simpan", isi nilai IPK pada input form
+      getIpk.value = result.value;
+    }
+  });
 }
 
 //form
@@ -46,7 +67,7 @@ form.addEventListener("submit", function (e) {
 
   // Check if the NPM already exists in sessionStorage
   if (sessionStorage.getItem("myNpm") === JSON.stringify(npmValue)) {
-    alert("NPM already exists. Cannot add duplicate data.");
+    alert("NPM sudah ada Tidak dapat rangkap data");
     return; // Stop processing the form submission
   }
 
